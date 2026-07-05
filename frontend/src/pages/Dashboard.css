@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");
+
+.dashboard {
+    min-height: 100vh;
+    padding: 44px;
+    background: #F7F3ED;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #2B2B28;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 780px;
+    margin: 0 auto 36px;
+}
+
+.dashboard-header h1 {
+    font-family: "Quicksand", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.logout-btn {
+    padding: 9px 18px;
+    border: 1px solid #E3DACB;
+    border-radius: 10px;
+    background: #fff;
+    color: #83796C;
+    font-size: 13.5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    border-color: #B3463A;
+    color: #B3463A;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.card {
+    width: 230px;
+    padding: 22px 20px;
+    background: #fffdfb;
+    border: 1px solid #ECE4D8;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(43, 43, 40, 0.08);
+    outline: none;
+}
+
+.card h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.card p {
+    font-size: 13.5px;
+    color: #83796C;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .dashboard {
+        padding: 26px 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .card {
+        width: 100%;
+    }
+}

@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");
+
+.roads {
+    min-height: 100vh;
+    padding: 44px 48px;
+    background: #F7F3ED;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #2B2B28;
+}
+
+.roads h1 {
+    font-family: "Quicksand", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subtitle {
+    max-width: 700px;
+    margin: 0 auto 26px;
+    color: #83796C;
+    font-size: 14.5px;
+}
+
+.road-form {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #fffdfb;
+    border: 1px solid #ECE4D8;
+    border-radius: 14px;
+    padding: 20px 22px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 180px;
+}
+
+.field-narrow {
+    min-width: 110px;
+}
+
+.field label {
+    font-size: 13px;
+    color: #83796C;
+}
+
+.field select,
+.field input {
+    padding: 9px 11px;
+    border: 1px solid #E3DACB;
+    border-radius: 9px;
+    background: #fff;
+    font-size: 14px;
+    color: #2B2B28;
+}
+
+.field select:focus-visible,
+.field input:focus-visible {
+    outline: 2px solid #4C8577;
+    outline-offset: 1px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    color: #83796C;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+.checkbox input {
+    width: 15px;
+    height: 15px;
+    accent-color: #4C8577;
+}
+
+.add-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 9px;
+    background: #4C8577;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.add-btn:hover:not(:disabled) {
+    background: #3E6E62;
+}
+
+.add-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.error-text {
+    max-width: 700px;
+    margin: 14px auto 0;
+    color: #B3463A;
+    font-size: 13.5px;
+}
+
+.road-list {
+    max-width: 700px;
+    margin: 24px auto 0;
+}
+
+.empty-text {
+    color: #83796C;
+    font-size: 14px;
+    padding: 14px 0;
+}
+
+.road-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: #fffdfb;
+    border: 1px solid #ECE4D8;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+}
+
+.road-row-text {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.arrow,
+.dot {
+    color: #B7AB98;
+}
+
+.delete-btn {
+    border: none;
+    background: none;
+    color: #83796C;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.delete-btn:hover {
+    color: #B3463A;
+    background: rgba(179, 70, 58, 0.08);
+}
+
+@media (max-width: 640px) {
+    .roads {
+        padding: 26px 20px;
+    }
+
+    .road-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
