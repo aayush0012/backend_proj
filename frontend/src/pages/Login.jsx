@@ -37,7 +37,7 @@ function Login() {
         <div className="login-container">
             <form className="login-box" onSubmit={handleLogin}>
 
-                <h1>🚗 RouteIQ</h1>
+                <h1>GoRoute-EZ</h1>
 
                 <input
                     type="email"
