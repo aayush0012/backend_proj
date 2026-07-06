@@ -1,61 +1,79 @@
-# Go Route
+# 🚗 Go Route
 
-Go Route is a full-stack route optimization platform that enables users to manage city networks, define road connections, and compute the shortest path between two locations using **Dijkstra's Algorithm**. The application features secure JWT-based authentication and provides an intuitive interface for managing transportation networks.
+A full-stack route optimization platform that enables users to manage city networks, create road connections, and compute the shortest path between cities using **Dijkstra's Algorithm**.
+
+---
 
 ## 🌐 Live Demo
 
 **Live:** https://backend-proj-blue.vercel.app/
 
-## 📂 GitHub Repository
+## 💻 Source Code
 
-https://github.com/aayush0012/backend_proj
-
----
-
-# Features
-
-- User Registration & Login
-- JWT-based Authentication
-- Protected API Routes
-- Manage Cities (CRUD)
-- Manage Roads (CRUD)
-- Compute Shortest Path using Dijkstra's Algorithm
-- Responsive React Frontend
-- RESTful FastAPI Backend
-- PostgreSQL Database Integration
-- Cloud Deployment using Render, Neon PostgreSQL, and Vercel
+**GitHub:** https://github.com/aayush0012/backend_proj
 
 ---
 
-# Tech Stack
+# ✨ Features
 
-## Frontend
+- 🔐 JWT Authentication
+- 👤 User Registration & Login
+- 🏙️ City Management (CRUD)
+- 🛣️ Road Management (CRUD)
+- 📍 Shortest Path Computation using Dijkstra's Algorithm
+- ⚡ FastAPI REST APIs
+- 💾 PostgreSQL Database
+- 🌍 Fully Deployed Application
+
+---
+
+# 📸 Application Screenshots
+
+## Dashboard
+
+<p align="center">
+  <img src="images/dashboard.png" width="900">
+</p>
+
+---
+
+## Route Planner
+
+<p align="center">
+  <img src="images/route-planner.png" width="900">
+</p>
+
+---
+
+# 🛠 Tech Stack
+
+### Frontend
 
 - React.js
 - React Router
 - Axios
 - CSS
 
-## Backend
+### Backend
 
 - FastAPI
 - SQLAlchemy
 - JWT Authentication
 - Pydantic
 
-## Database
+### Database
 
 - PostgreSQL
 - Neon PostgreSQL
 
-## Deployment
+### Deployment
 
 - Render
 - Vercel
 
 ---
 
-# Project Architecture
+# 🏗️ Project Architecture
 
 ```
 React Frontend
@@ -81,7 +99,7 @@ React Frontend
 
 ---
 
-# Folder Structure
+# 📂 Folder Structure
 
 ```
 backend/
@@ -94,8 +112,9 @@ backend/
 │   ├── services/
 │   └── main.py
 │
-├── requirements.txt
-└── Dockerfile
+├── Dockerfile
+└── requirements.txt
+
 
 frontend/
 │
@@ -111,32 +130,32 @@ frontend/
 
 ---
 
-# Authentication
+# 🔐 Authentication
 
 The application uses **JWT (JSON Web Tokens)** for secure authentication.
 
-- User Registration
+Authentication flow:
+
+- Register User
 - Password Hashing
-- Login Authentication
-- Token Generation
-- Protected Endpoints
+- Login
+- JWT Token Generation
+- Protected API Routes
 
 ---
 
-# Route Optimization
+# 🛣️ Route Optimization
 
 Go Route models the transportation network as a **weighted graph**.
 
-Each:
+- Cities → Vertices
+- Roads → Weighted Edges
 
-- City → Vertex
-- Road → Weighted Edge
-
-The shortest route is computed using **Dijkstra's Algorithm**, which guarantees the minimum distance between two connected cities.
+The shortest route is computed using **Dijkstra's Algorithm**, ensuring the minimum travel distance between two connected cities.
 
 ---
 
-# API Endpoints
+# 📡 REST API Endpoints
 
 ## Authentication
 
@@ -144,6 +163,8 @@ The shortest route is computed using **Dijkstra's Algorithm**, which guarantees 
 |---------|----------|
 | POST | `/register` |
 | POST | `/login` |
+
+---
 
 ## Cities
 
@@ -153,6 +174,8 @@ The shortest route is computed using **Dijkstra's Algorithm**, which guarantees 
 | POST | `/cities/` |
 | DELETE | `/cities/{id}` |
 
+---
+
 ## Roads
 
 | Method | Endpoint |
@@ -160,6 +183,8 @@ The shortest route is computed using **Dijkstra's Algorithm**, which guarantees 
 | GET | `/roads/` |
 | POST | `/roads/` |
 | DELETE | `/roads/{id}` |
+
+---
 
 ## Route
 
@@ -169,7 +194,7 @@ The shortest route is computed using **Dijkstra's Algorithm**, which guarantees 
 
 ---
 
-# Running Locally
+# 🚀 Running Locally
 
 ## Backend
 
@@ -178,7 +203,6 @@ cd backend
 
 python -m venv venv
 
-source venv/bin/activate
 # Windows
 venv\Scripts\activate
 
@@ -187,7 +211,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-Backend runs on:
+Runs on:
 
 ```
 http://localhost:8000
@@ -205,7 +229,7 @@ npm install
 npm run dev
 ```
 
-Frontend runs on:
+Runs on:
 
 ```
 http://localhost:5173
@@ -213,41 +237,23 @@ http://localhost:5173
 
 ---
 
-# Deployment
-
-Frontend
-
-- Vercel
-
-Backend
-
-- Render
-
-Database
-
-- Neon PostgreSQL
-
----
-
-# Future Enhancements
+# 📌 Future Enhancements
 
 - Minimum Stops Routing (BFS)
+- Traffic-Based Route Optimization
 - Road Closure Support
-- Traffic-Based Edge Weights
-- Route History
-- Interactive Map Integration
 - Multiple Route Suggestions
+- Interactive Maps
+- Route History
 
 ---
 
-# Author
+# 👨‍💻 Author
 
 **Aayush Bhatt**
 
-GitHub:
-https://github.com/aayush0012
+GitHub: https://github.com/aayush0012
 
-LinkedIn:
-https://www.linkedin.com/in/aayush-bhatt-3657b1314/
+LinkedIn: https://www.linkedin.com/in/aayush-bhatt-3657b1314/
 
 ---
