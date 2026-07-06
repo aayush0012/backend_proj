@@ -1,4 +1,4 @@
-# 🚗 Go Route
+# Go Route
 
 Go Route is a full-stack route optimization platform that enables users to manage city networks, define road connections, and compute the shortest path between two locations using **Dijkstra's Algorithm**. The application features secure JWT-based authentication and provides an intuitive interface for managing transportation networks.
 
@@ -251,5 +251,3 @@ LinkedIn:
 https://www.linkedin.com/in/aayush-bhatt-3657b1314/
 
 ---
-
-If you found this project interesting, feel free to ⭐ the repository.
