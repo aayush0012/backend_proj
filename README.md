@@ -1,6 +1,6 @@
-# 🚗 Go Route
+# 🚗 GoRoute
 
-A full-stack route optimization platform that enables users to manage city networks, create road connections, and compute the shortest path between cities using **Dijkstra's Algorithm**.
+A premium, full-stack route optimization platform that enables users to manage city networks, connect roads, and compute optimal routes between cities using **Dijkstra, Bellman-Ford, and A* Graph Algorithms**, with support for **dynamic intermediate stops**.
 
 ---
 
@@ -10,20 +10,19 @@ A full-stack route optimization platform that enables users to manage city netwo
 
 ## 💻 Source Code
 
-**GitHub:** https://github.com/aayush0012/backend_proj
+**GitHub:** https://github.com/aayush0012/Go_Route-Graph-Based-Route-Optimiser-
 
 ---
 
 # ✨ Features
 
-- 🔐 JWT Authentication
-- 👤 User Registration & Login
-- 🏙️ City Management (CRUD)
-- 🛣️ Road Management (CRUD)
-- 📍 Shortest Path Computation using Dijkstra's Algorithm
-- ⚡ FastAPI REST APIs
-- 💾 PostgreSQL Database
-- 🌍 Fully Deployed Application
+- 🔐 **Secure JWT Authentication**: User registration, login, and secure token storage.
+- 👥 **Access as Guest**: Single-click guest login for immediate system evaluation.
+- 🏙️ **City Hub Management**: CRUD operations to register new logistics cities dynamically.
+- 🛣️ **Road Network Designer**: Link cities together, set driving distances, and configure bidirectional or one-way routes.
+- 📍 **Multi-Algorithm Routing**: Compute optimal paths using **Dijkstra (Fastest)**, **Bellman-Ford (Negative Edge/Standard)**, or **A* (Heuristic)** search.
+- 🛑 **Dynamic Intermediate Stops**: Add multiple waypoints along the journey (e.g. Delhi ➔ Bengaluru ➔ Mysore) to calculate segmented multi-hop routes sequentially.
+- 🎨 **Premium UI Design**: Clean, handcrafted, card-grid dashboard layout styled with **Plus Jakarta Sans** typography and a warm tone aesthetic.
 
 ---
 
@@ -52,19 +51,18 @@ A full-stack route optimization platform that enables users to manage city netwo
 - React.js
 - React Router
 - Axios
-- CSS
+- Vanilla CSS (Warm skin tone system)
 
 ### Backend
 
 - FastAPI
-- SQLAlchemy
-- JWT Authentication
+- SQLAlchemy ORM
 - Pydantic
+- Uvicorn
 
 ### Database
 
-- PostgreSQL
-- Neon PostgreSQL
+- PostgreSQL (Neon Serverless)
 
 ### Deployment
 
@@ -76,25 +74,25 @@ A full-stack route optimization platform that enables users to manage city netwo
 # 🏗️ Project Architecture
 
 ```
-React Frontend
+React Frontend (GoRoute)
         │
         ▼
-     Axios API
+   Axios Client
         │
         ▼
- FastAPI Backend
+  FastAPI Backend (Uvicorn)
         │
         ▼
- SQLAlchemy ORM
+  SQLAlchemy ORM
         │
         ▼
  PostgreSQL Database
         │
         ▼
- Graph Construction
-        │
-        ▼
- Dijkstra's Algorithm
+ Segmented Routing Engine
+   ├── Dijkstra's Algorithm
+   ├── Bellman-Ford Algorithm
+   └── A* Heuristic Algorithm
 ```
 
 ---
@@ -105,12 +103,12 @@ React Frontend
 backend/
 │
 ├── app/
-│   ├── api/
-│   ├── database/
-│   ├── models/
-│   ├── schemas/
-│   ├── services/
-│   └── main.py
+│   ├── api/          # Route handlers (users, cities, roads, routes)
+│   ├── database/     # DB Session & engine configuration
+│   ├── models/       # SQLAlchemy models (User, City, Road)
+│   ├── schemas/      # Pydantic schemas
+│   ├── services/     # Pathfinding algorithms
+│   └── main.py       # FastAPI application entrypoint
 │
 ├── Dockerfile
 └── requirements.txt
@@ -119,10 +117,10 @@ backend/
 frontend/
 │
 ├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── App.jsx
+│   ├── components/   # Layout and Navigation bar
+│   ├── pages/        # Dashboard, Cities, Roads, RoutePlanner, Login, Register
+│   ├── services/     # Axios client configuration
+│   └── App.jsx       # Routing rules
 │
 ├── package.json
 └── vite.config.js
@@ -130,28 +128,16 @@ frontend/
 
 ---
 
-# 🔐 Authentication
+# 🛣️ Route Optimization & Algorithms
 
-The application uses **JWT (JSON Web Tokens)** for secure authentication.
+GoRoute models your transportation network as a **weighted directed graph**:
+- **Cities** act as vertices (nodes).
+- **Roads** act as weighted directed or undirected edges (distances).
 
-Authentication flow:
-
-- Register User
-- Password Hashing
-- Login
-- JWT Token Generation
-- Protected API Routes
-
----
-
-# 🛣️ Route Optimization
-
-Go Route models the transportation network as a **weighted graph**.
-
-- Cities → Vertices
-- Roads → Weighted Edges
-
-The shortest route is computed using **Dijkstra's Algorithm**, ensuring the minimum travel distance between two connected cities.
+The engine partitions routes with intermediate waypoints into consecutive segments and executes the chosen search algorithm:
+1. **Dijkstra's Algorithm**: Rapid greedy search suitable for finding the absolute shortest paths.
+2. **Bellman-Ford Algorithm**: Classical edge relaxation, supporting negative weights and verifying cyclic connectivity.
+3. **A\* Algorithm**: Heuristic-guided search utilizing a coordinated spatial heuristic ($h(n) = 0$ spatial coordinates fallback).
 
 ---
 
@@ -159,38 +145,39 @@ The shortest route is computed using **Dijkstra's Algorithm**, ensuring the mini
 
 ## Authentication
 
-| Method | Endpoint |
-|---------|----------|
-| POST | `/register` |
-| POST | `/login` |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/register` | Register a new user |
+| POST | `/login` | Authenticate credentials and return JWT |
+| POST | `/login/guest` | Generate a session token for guest users |
 
 ---
 
 ## Cities
 
-| Method | Endpoint |
-|---------|----------|
-| GET | `/cities/` |
-| POST | `/cities/` |
-| DELETE | `/cities/{id}` |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/cities/` | List all registered cities |
+| POST | `/cities/` | Register a new city |
+| DELETE | `/cities/{id}` | Delete a city hub |
 
 ---
 
 ## Roads
 
-| Method | Endpoint |
-|---------|----------|
-| GET | `/roads/` |
-| POST | `/roads/` |
-| DELETE | `/roads/{id}` |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/roads/` | List all road connections |
+| POST | `/roads/` | Link two cities with a road |
+| DELETE | `/roads/{id}` | Remove a road connection |
 
 ---
 
 ## Route
 
-| Method | Endpoint |
-|---------|----------|
-| POST | `/route/` |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/route/` | Calculate the shortest path with stops |
 
 ---
 
@@ -239,7 +226,6 @@ http://localhost:5173
 
 # 📌 Future Enhancements
 
-- Minimum Stops Routing (BFS)
 - Traffic-Based Route Optimization
 - Road Closure Support
 - Multiple Route Suggestions
