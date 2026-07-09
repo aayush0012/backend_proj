@@ -44,6 +44,14 @@ A premium, full-stack route optimization platform that enables users to manage c
 
 ---
 
+## Cities Management
+
+<p align="center">
+  <img src="images/cities.png" width="900">
+</p>
+
+---
+
 # 🛠 Tech Stack
 
 ### Frontend
