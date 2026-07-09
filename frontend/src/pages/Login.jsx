@@ -71,7 +71,7 @@ function Login() {
                     <div className="connection conn-4-1"></div>
                 </div>
                 <div className="brand-content">
-                    <div className="logo-badge">🧭 RouteIQ</div>
+                    <div className="logo-badge">🧭 GoRoute</div>
                     <h1>Smart Route Optimization</h1>
                     <p className="tagline">Connect locations, analyze connections, and discover the most efficient paths instantly.</p>
                     

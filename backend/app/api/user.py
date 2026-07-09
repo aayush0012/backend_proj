@@ -71,7 +71,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
 @router.post("/login/guest")
 def guest_login(db: Session = Depends(get_db)):
 
-    guest_email = "guest@routeiq.com"
+    guest_email = "guest@goroute.com"
     guest_user = db.query(User).filter(User.email == guest_email).first()
 
     if not guest_user:

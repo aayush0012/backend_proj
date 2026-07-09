@@ -14,7 +14,7 @@ function Dashboard() {
             <div className="dashboard-container">
                 <div className="dashboard-header">
                     <div className="header-brand">
-                        <span className="logo-badge">🧭 RouteIQ</span>
+                        <span className="logo-badge">🧭 GoRoute</span>
                         <h1>Welcome back!</h1>
                         <p className="welcome-subtext">
                             Your active routing network is online and running. Delhi, Bengaluru, and other hubs are connected.

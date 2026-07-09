@@ -3,7 +3,7 @@ version: "3.9"
 services:
   db:
     image: postgres:16
-    container_name: routeiq_db
+    container_name: goroute_db
 
     restart: always
 
@@ -21,7 +21,7 @@ services:
   api:
     build: .
 
-    container_name: routeiq_api
+    container_name: goroute_api
 
     depends_on:
       - db
