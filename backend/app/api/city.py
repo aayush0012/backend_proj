@@ -36,6 +36,24 @@ DEFAULT_CITY_COORDINATES = {
     "goa": (15.2993, 74.1240),
     "kochi": (9.9312, 76.2673),
     "indore": (22.7196, 75.8577),
+    "bhopal": (23.2599, 77.4126),
+    "patna": (25.5941, 85.1376),
+    "nagpur": (21.1458, 79.0882),
+    "vadodara": (22.3072, 73.1812),
+    "visakhapatnam": (17.6868, 83.2185),
+    "coimbatore": (11.0168, 76.9558),
+    "madurai": (9.9252, 78.1198),
+    "guwahati": (26.1445, 91.7362),
+    "ranchi": (23.3441, 85.3096),
+    "shimla": (31.1048, 77.1734),
+    "dehradun": (30.3165, 78.0322),
+    "amritsar": (31.6340, 74.8723),
+    "jodhpur": (26.2389, 73.0243),
+    "udaipur": (24.5854, 73.7125),
+    "kanpur": (26.4499, 80.3319),
+    "nashik": (19.9975, 73.7898),
+    "thiruvananthapuram": (8.5241, 76.9366),
+    "trivandrum": (8.5241, 76.9366),
 }
 
 def geocode_city_name(city_name: str):
@@ -45,7 +63,7 @@ def geocode_city_name(city_name: str):
             url,
             headers={'User-Agent': 'RouteIQ-App/1.0'}
         )
-        with urllib.request.urlopen(req, timeout=3) as response:
+        with urllib.request.urlopen(req, timeout=2) as response:
             data = json.loads(response.read().decode())
             if data and len(data) > 0:
                 return float(data[0]['lat']), float(data[0]['lon'])
@@ -56,6 +74,11 @@ def geocode_city_name(city_name: str):
 @router.post("/")
 def create_city(city: CityCreate, db: Session = Depends(get_db)):
     clean_name = city.name.strip()
+    if not clean_name:
+        raise HTTPException(
+            status_code=400,
+            detail="City name cannot be empty."
+        )
 
     existing_city = db.query(City).filter(
         func.lower(City.name) == func.lower(clean_name)
@@ -75,7 +98,9 @@ def create_city(city: CityCreate, db: Session = Depends(get_db)):
         if key in DEFAULT_CITY_COORDINATES:
             lat, lng = DEFAULT_CITY_COORDINATES[key]
         else:
-            lat, lng = geocode_city_name(clean_name)
+            g_lat, g_lng = geocode_city_name(clean_name)
+            if g_lat is not None and g_lng is not None:
+                lat, lng = g_lat, g_lng
 
     new_city = City(
         name=clean_name,
@@ -100,19 +125,17 @@ def get_all_cities(db: Session = Depends(get_db)):
             if key in DEFAULT_CITY_COORDINATES:
                 c.latitude, c.longitude = DEFAULT_CITY_COORDINATES[key]
                 updated = True
-            else:
-                g_lat, g_lng = geocode_city_name(c.name)
-                if g_lat is not None and g_lng is not None:
-                    c.latitude, c.longitude = g_lat, g_lng
-                    updated = True
     if updated:
-        db.commit()
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
     return cities
-
 
 
 @router.delete("/{city_id}")
 def delete_city(city_id: int, db: Session = Depends(get_db)):
+    from app.models.road import Road
 
     city = db.query(City).filter(
         City.id == city_id
@@ -123,6 +146,11 @@ def delete_city(city_id: int, db: Session = Depends(get_db)):
             status_code=404,
             detail="City not found"
         )
+
+    # Delete all connected roads referencing this city to avoid foreign key violations
+    db.query(Road).filter(
+        (Road.source_city_id == city_id) | (Road.destination_city_id == city_id)
+    ).delete(synchronize_session=False)
 
     db.delete(city)
     db.commit()

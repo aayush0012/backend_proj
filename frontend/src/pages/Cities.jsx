@@ -9,6 +9,7 @@ function Cities() {
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
     const [isSaving, setIsSaving] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const fetchCities = async () => {
         try {
@@ -27,12 +28,17 @@ function Cities() {
 
     const addCity = async (e) => {
         if (e) e.preventDefault();
-        if (!cityName.trim()) return;
+        if (!cityName.trim()) {
+            setErrorMsg("Please enter a valid city name.");
+            return;
+        }
 
         setIsSaving(true);
+        setErrorMsg("");
+
         try {
             await api.post("/cities/", {
-                name: cityName,
+                name: cityName.trim(),
                 latitude: latitude !== "" ? parseFloat(latitude) : null,
                 longitude: longitude !== "" ? parseFloat(longitude) : null,
             });
@@ -40,20 +46,22 @@ function Cities() {
             setCityName("");
             setLatitude("");
             setLongitude("");
-            fetchCities();
+            await fetchCities();
         } catch (error) {
             const detail = error.response?.data?.detail;
             let msg = "Failed to add city.";
             if (typeof detail === "string") {
                 msg = detail;
             } else if (Array.isArray(detail)) {
-                msg = detail.map((d) => d.msg).join(", ");
+                msg = detail.map((d) => (typeof d === "string" ? d : (d.msg || JSON.stringify(d)))).join(", ");
+            } else if (detail && typeof detail === "object") {
+                msg = JSON.stringify(detail);
             } else if (error.message) {
                 msg = error.message.includes("Network Error") || error.code === "ERR_NETWORK"
                     ? "Network Error: Unable to connect to backend server. Make sure the backend server (FastAPI) is running."
                     : error.message;
             }
-            alert(msg);
+            setErrorMsg(msg);
         } finally {
             setIsSaving(false);
         }
@@ -61,10 +69,13 @@ function Cities() {
 
     const deleteCity = async (id) => {
         try {
+            setErrorMsg("");
             await api.delete(`/cities/${id}`);
-            fetchCities();
+            await fetchCities();
         } catch (error) {
             console.log(error);
+            const detail = error.response?.data?.detail;
+            setErrorMsg(typeof detail === "string" ? detail : "Failed to delete city.");
         }
     };
 
@@ -130,6 +141,8 @@ function Cities() {
                             {isSaving ? "Registering..." : "Register City"}
                         </button>
                     </div>
+
+                    {errorMsg && <div className="console-error-message">{errorMsg}</div>}
                 </form>
 
                 {/* Full-Width Cities Table */}
@@ -155,10 +168,10 @@ function Cities() {
                                             <td>{index + 1}</td>
                                             <td className="font-semibold">{city.name}</td>
                                             <td className="font-mono">
-                                                {city.latitude !== null ? city.latitude.toFixed(4) : "—"}
+                                                {city.latitude !== null && city.latitude !== undefined ? city.latitude.toFixed(4) : "—"}
                                             </td>
                                             <td className="font-mono">
-                                                {city.longitude !== null ? city.longitude.toFixed(4) : "—"}
+                                                {city.longitude !== null && city.longitude !== undefined ? city.longitude.toFixed(4) : "—"}
                                             </td>
                                             <td>
                                                 <button

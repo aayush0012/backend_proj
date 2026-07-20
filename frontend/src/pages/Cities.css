@@ -107,6 +107,17 @@
     cursor: not-allowed;
 }
 
+.console-error-message {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    color: #991b1b;
+    font-size: 13px;
+    font-weight: 500;
+}
+
 /* City List Table Section */
 .city-list-section {
     background: #ffffff;
