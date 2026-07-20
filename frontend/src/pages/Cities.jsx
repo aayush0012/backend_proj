@@ -79,6 +79,14 @@ function Cities() {
         }
     };
 
+    const safeCities = Array.isArray(cities) ? cities.filter(Boolean) : [];
+
+    const formatCoord = (val) => {
+        if (val === null || val === undefined || val === "") return "—";
+        const num = Number(val);
+        return isNaN(num) ? "—" : num.toFixed(4);
+    };
+
     return (
         <Layout>
             <div className="cities-workspace">
@@ -148,7 +156,7 @@ function Cities() {
                 {/* Full-Width Cities Table */}
                 <div className="city-list-section">
                     <h3 className="section-title">Registered City Hubs</h3>
-                    {cities.length === 0 ? (
+                    {safeCities.length === 0 ? (
                         <p className="empty-text">No city hubs registered yet. Use the console above to add cities.</p>
                     ) : (
                         <div className="city-table-container">
@@ -163,16 +171,12 @@ function Cities() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cities.map((city, index) => (
-                                        <tr key={city.id}>
+                                    {safeCities.map((city, index) => (
+                                        <tr key={city.id || index}>
                                             <td>{index + 1}</td>
                                             <td className="font-semibold">{city.name}</td>
-                                            <td className="font-mono">
-                                                {city.latitude !== null && city.latitude !== undefined ? city.latitude.toFixed(4) : "—"}
-                                            </td>
-                                            <td className="font-mono">
-                                                {city.longitude !== null && city.longitude !== undefined ? city.longitude.toFixed(4) : "—"}
-                                            </td>
+                                            <td className="font-mono">{formatCoord(city.latitude)}</td>
+                                            <td className="font-mono">{formatCoord(city.longitude)}</td>
                                             <td>
                                                 <button
                                                     type="button"

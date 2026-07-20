@@ -277,7 +277,7 @@ function RouteMap({
                                 <div className="map-popup">
                                     <h3>🏙️ {city.name}</h3>
                                     <p className="coords-text">
-                                        Lat: {city.latitude.toFixed(4)}, Lng: {city.longitude.toFixed(4)}
+                                        Lat: {Number(city.latitude).toFixed(4)}, Lng: {Number(city.longitude).toFixed(4)}
                                     </p>
                                     {onSelectCity && (
                                         <div className="popup-actions">
